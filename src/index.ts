@@ -16,13 +16,21 @@ interface columnToFakerMap {
  * 
  */
 export function generateEntryFromModel (Entity: any, fakerMap:columnToFakerMap = {}) {
+    return generateEntry(Entity.rawAttributes, fakerMap);
+};
+
+export function generateEntryFromSchema (schema: any, fakerMap:columnToFakerMap = {}) {
+    return generateEntry(schema, fakerMap)
+};
+
+function generateEntry(columns: any, fakerMap: columnToFakerMap = {}) {
     const entry: any = {};
 
-    Object.keys(Entity.rawAttributes).forEach(column => {
+    Object.keys(columns).forEach(column => {
         if (fakerMap[column]) {
             entry[column] = invoke(faker, fakerMap[column]);
         } else {
-            entry[column] = getFakeDataForColumn(Entity.rawAttributes[column]);
+            entry[column] = getFakeDataForColumn(columns[column]);
         }
     });
 
