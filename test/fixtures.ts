@@ -5,7 +5,7 @@ export const PersonSchema = {
         type: DataTypes.CHAR(20),
     },
     annualIncome: {
-        type: DataTypes.DOUBLE(11, 2),
+        type: DataTypes.TINYINT,
     },
     monthlyIncome: {
         type: DataTypes.MEDIUMINT({length: 7}),

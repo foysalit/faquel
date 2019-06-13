@@ -3,6 +3,10 @@ import * as faker from 'faker';
 export function getFakeDataForColumn (column: any): any {
     const typeKey = column.type.constructor.name;
 
+    if (typeKey === 'Function' && column.type.key === 'TINYINT') {
+        return faker.random.arrayElement([0, 1]);
+    }
+
     if (isNumber(typeKey)) {
         return generateNumber(column);
     }
@@ -37,7 +41,13 @@ const generateNumber = (column: any) => {
     const options: any = {};
 
     if (column.type._length) {
-        options.max = 10 ** column.type._length - 1;
+        let power = column.type._length;
+
+        if (column.type._decimals) {
+            power = power - column.type._decimals;
+        }
+
+        options.max = 10 ** (power - 1);
     }
 
     if (column.type._decimals) {

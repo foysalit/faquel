@@ -1,6 +1,6 @@
 {
   "name": "faquel",
-  "version": "0.2.3",
+  "version": "0.2.6",
   "description": "Generate fake data directly from sequelize schema",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

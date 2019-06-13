@@ -57,7 +57,7 @@ describe('Faquel', async () => {
     });
 
     describe('generateEntryFromSchema()', function () {
-        it('Generates fake data based on column datatype', function () {
+        it.only('Generates fake data based on column datatype', function () {
             const person = generateEntryFromSchema(PersonSchema);
             expect(person).to.have.all.keys(Object.keys(PersonSchema));
 
