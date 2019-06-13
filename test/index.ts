@@ -5,9 +5,9 @@ import { Person, PersonSchema } from './fixtures';
 import { generateEntryFromModel, generateEntryFromSchema } from '../src';
 
 describe('Faquel', async () => {
-    let sequelize, models: any = {};
+    let sequelize: any, models: any = {};
 
-    before(() => {
+    before(async () => {
         sequelize = new Sequelize({
             database: 'faquel_test',
             dialect: 'sqlite',
@@ -17,6 +17,11 @@ describe('Faquel', async () => {
         });
 
         models['Person'] = Person.init(sequelize);
+        await sequelize.sync();
+    });
+
+    after(async () => {
+        await sequelize.drop();
     });
 
     describe('generateEntryFromModel()', function () {
@@ -43,6 +48,12 @@ describe('Faquel', async () => {
             
             expect(person.name).to.be.instanceOf(Date);
         });
+
+        it('saves fake entry in database', async function () {
+            const person = await models.Person.create(generateEntryFromModel(Person));
+            const fromDb = await models.Person.findByPk(person.id);
+            expect(person.dataValues).to.eql(fromDb.dataValues);
+        });
     });
 
     describe('generateEntryFromSchema()', function () {
@@ -56,6 +67,12 @@ describe('Faquel', async () => {
 
             expect(person.annualIncome).to.be.a("number");
             expect(person.annualIncome % 1).to.be.above(0);
+        });
+
+        it('saves fake entry in database', async function () {
+            const person = await models.Person.create(generateEntryFromSchema(PersonSchema));
+            const fromDb = await models.Person.findByPk(person.id);
+            expect(person.dataValues).to.eql(fromDb.dataValues);
         });
     });
 });

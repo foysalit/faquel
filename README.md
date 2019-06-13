@@ -69,7 +69,7 @@ const fakePersonFromModel = generateEntryFromModel(models.Person);
 
 const fakePersonFromSchema = generateEntryFromSchema(PersonSchema);
 /*
-    fakePerson = { 
+    fakePersonFromSchema = { 
         name: 'Cupiditate nulla del',
         annualIncome: 80886196623.68,
         monthlyIncome: 20656,

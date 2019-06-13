@@ -8,7 +8,7 @@ export const PersonSchema = {
         type: DataTypes.DOUBLE(11, 2),
     },
     monthlyIncome: {
-        type: DataTypes.INTEGER(),
+        type: DataTypes.MEDIUMINT({length: 7}),
     },
     dob: {
         type: DataTypes.DATEONLY

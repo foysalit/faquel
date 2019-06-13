@@ -1,6 +1,6 @@
 {
   "name": "faquel",
-  "version": "0.1.0",
+  "version": "0.2.3",
   "description": "Generate fake data directly from sequelize schema",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -9,6 +9,7 @@
     "build:watch": "concurrently --kill-others \"tsc -w\" \"nodemon dist/index.js\"",
     "lint": "tslint --project \"./tsconfig.json\"",
     "test": "mocha --require ts-node/register test/**/*.ts",
+    "prepare": "npm run build",
     "postversion": "git push && git push --tags"
   },
   "repository": {
@@ -26,6 +27,7 @@
     "url": "https://github.com/foysalit/faquel/issues"
   },
   "homepage": "https://github.com/foysalit/faquel#readme",
+  "files": ["dist/**/*"],
   "dependencies": {
     "faker": "^4.1.0",
     "lodash.invoke": "^4.5.2",

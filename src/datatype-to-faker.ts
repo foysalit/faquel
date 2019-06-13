@@ -25,6 +25,7 @@ const isNumber = (type: string): boolean => {
         || type.includes('MEDIUMINT')
         || type.includes('INTEGER')
         || type.includes('BIGINT')
+        || type.includes('TINYINT')
         || type.includes('DECIMAL')
         || type.includes('FLOAT')
         || type.includes('NUMERIC')
