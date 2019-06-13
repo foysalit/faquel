@@ -1,0 +1,50 @@
+{
+  "name": "faquel",
+  "version": "0.1.0",
+  "description": "Generate fake data directly from sequelize schema",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "build:watch": "concurrently --kill-others \"tsc -w\" \"nodemon dist/index.js\"",
+    "lint": "tslint --project \"./tsconfig.json\"",
+    "test": "mocha --require ts-node/register test/**/*.ts",
+    "postversion": "git push && git push --tags"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/foysalit/faquel.git"
+  },
+  "keywords": [
+    "sequelize",
+    "faker",
+    "mysql"
+  ],
+  "author": "Foysal Ahamed",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/foysalit/faquel/issues"
+  },
+  "homepage": "https://github.com/foysalit/faquel#readme",
+  "dependencies": {
+    "faker": "^4.1.0",
+    "lodash.invoke": "^4.5.2",
+    "sequelize": "^5.8.9"
+  },
+  "devDependencies": {
+    "@types/bluebird": "^3.5.27",
+    "@types/chai": "^4.1.7",
+    "@types/faker": "^4.1.5",
+    "@types/lodash.invoke": "^4.5.6",
+    "@types/mocha": "^5.2.6",
+    "@types/node": "^11.13.2",
+    "@types/validator": "^10.11.1",
+    "chai": "^4.2.0",
+    "concurrently": "^4.1.0",
+    "mocha": "^6.1.2",
+    "sqlite3": "^4.0.8",
+    "ts-node": "^8.0.3",
+    "tslint": "^5.15.0",
+    "typescript": "^3.4.2"
+  }
+}
