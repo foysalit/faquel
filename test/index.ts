@@ -14,6 +14,7 @@ describe('Faquel', async () => {
             username: 'root',
             password: '',
             storage: ':memory:',
+            logging: false,
         });
 
         models['Person'] = Person.init(sequelize);
@@ -49,6 +50,14 @@ describe('Faquel', async () => {
             expect(person.name).to.be.instanceOf(Date);
         });
 
+        it('Generates fake data from externally passed function', function () {
+            const person = generateEntryFromModel(Person, {
+                name: () => `Foysal`
+            });
+            
+            expect(person.name).to.equal(`Foysal`);
+        });
+
         it('saves fake entry in database', async function () {
             const person = await models.Person.create(generateEntryFromModel(Person));
             const fromDb = await models.Person.findByPk(person.id);
@@ -57,7 +66,7 @@ describe('Faquel', async () => {
     });
 
     describe('generateEntryFromSchema()', function () {
-        it.only('Generates fake data based on column datatype', function () {
+        it('Generates fake data based on column datatype', function () {
             const person = generateEntryFromSchema(PersonSchema);
             expect(person).to.have.all.keys(Object.keys(PersonSchema));
 
