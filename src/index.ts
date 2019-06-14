@@ -3,7 +3,7 @@ import invoke from 'lodash.invoke';
 import { getFakeDataForColumn } from './datatype-to-faker';
 
 interface columnToFakerMap {
-    [key: string]: string;
+    [key: string]: string|any;
 };
 
 /**
@@ -28,7 +28,11 @@ function generateEntry(columns: any, fakerMap: columnToFakerMap = {}) {
 
     Object.keys(columns).forEach(column => {
         if (fakerMap[column]) {
-            entry[column] = invoke(faker, fakerMap[column]);
+            if (typeof fakerMap[column] === 'function') {
+                entry[column] = fakerMap[column]();
+            } else {
+                entry[column] = invoke(faker, fakerMap[column]);
+            }
         } else {
             entry[column] = getFakeDataForColumn(columns[column]);
         }

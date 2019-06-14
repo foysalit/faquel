@@ -101,6 +101,24 @@ Notice how the name looks more like a real name in the example above? that's bec
 
 You can pass any [faker method](https://rawgit.com/Marak/faker.js/master/examples/browser/index.html) name as a string like the example above.
 
+Also, faker may not be good enough for generating the desired data so as a supreme overrider, you can pass a function mapped to column name through fakerMap and the function will be invoked to generate your data. 
+
+```
+const fakePerson = generateEntryFromModel(models.Person, {
+    name: () => {
+        // do a lot of computation here
+        return 'the answer to life is 42';
+    }
+});
+/*
+    fakePerson = { 
+        ... other columns
+        name: 'the answer to life is 42',
+        ... other columns
+    };
+*/
+```
+
 ### Contribute
 PRs are more than welcome since right now, the library only supports a few of the column types from sequelize. 
 
