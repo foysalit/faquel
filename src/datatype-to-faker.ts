@@ -3,16 +3,25 @@ import * as faker from 'faker';
 export function getFakeDataForColumn (column: any): any {
     const typeKey = column.type.constructor.name;
 
-    if (typeKey === 'Function' && column.type.key === 'TINYINT') {
-        return faker.random.arrayElement([0, 1]);
+    if (typeKey === 'Function') {
+        if (column.type.key === 'TINYINT') {
+            return faker.random.arrayElement([0, 1]);
+        }
+        
+        if (column.type.key === 'DATE') {
+            return generateDate();
+        }
     }
 
-    if (typeKey === 'Function' && column.type.key === 'DATE') {
-        return generateDate();
-    }
+    if (typeKey === 'String') {
+        if (column.type === 'TIMESTAMP') {
+            return generateDate();
+        }
 
-    if (typeKey === 'String' && column.type === 'TIMESTAMP') {
-        return generateDate();
+        if (column.type.includes('SET(')) {
+            const validData = column.type.replace('SET(', '').replace(')', '').replace(/'/ig, '').split(',');
+            return faker.random.arrayElement(validData);
+        }
     }
 
     if (isNumber(typeKey)) {

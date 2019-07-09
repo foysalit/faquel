@@ -119,6 +119,10 @@ const fakePerson = generateEntryFromModel(models.Person, {
 */
 ```
 
+### ToDos
+- mysql SET columns are currently handled but not tested since we are using sqlite for testing. may be a test suite across dbs would help?
+
+
 ### Contribute
 PRs are more than welcome since right now, the library only supports a few of the column types from sequelize. 
 
