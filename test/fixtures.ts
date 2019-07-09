@@ -1,4 +1,4 @@
-import { Model, DataTypes } from 'sequelize';
+import { Model, DataTypes, Sequelize } from 'sequelize';
 
 export const PersonSchema = {
     name: {
@@ -12,6 +12,10 @@ export const PersonSchema = {
     },
     dob: {
         type: DataTypes.DATEONLY
+    },
+    otherTimestamp: {
+        type: "TIMESTAMP",
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
     },
     tabc_region: {
         type: DataTypes.ENUM("1", "2", "3", "4"),

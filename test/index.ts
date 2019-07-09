@@ -1,4 +1,5 @@
 import { expect } from 'chai';
+import without from "lodash.without";
 import { Sequelize } from 'sequelize';
 
 import { Person, PersonSchema } from './fixtures';
@@ -61,7 +62,7 @@ describe('Faquel', async () => {
         it('saves fake entry in database', async function () {
             const person = await models.Person.create(generateEntryFromModel(Person));
             const fromDb = await models.Person.findByPk(person.id);
-            expect(person.dataValues).to.eql(fromDb.dataValues);
+            expect(without(person.dataValues, ['otherTimestamp'])).to.eql(without(fromDb.dataValues, ['otherTimestamp']));
         });
     });
 
@@ -73,6 +74,7 @@ describe('Faquel', async () => {
             expect(person.name).to.be.a("string");
 
             expect(person.dob).to.be.a("date");
+            expect(person.otherTimestamp).to.be.a("date");
 
             expect(person.annualIncome).to.be.a("number");
             expect(person.annualIncome % 1).to.be.above(0);
@@ -81,7 +83,8 @@ describe('Faquel', async () => {
         it('saves fake entry in database', async function () {
             const person = await models.Person.create(generateEntryFromSchema(PersonSchema));
             const fromDb = await models.Person.findByPk(person.id);
-            expect(person.dataValues).to.eql(fromDb.dataValues);
+            // ignore othertimestamp since it's dependent on the db layer implementation
+            expect(without(person.dataValues, ['otherTimestamp'])).to.eql(without(fromDb.dataValues, ['otherTimestamp']));
         });
     });
 });

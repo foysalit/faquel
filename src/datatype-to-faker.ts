@@ -7,6 +7,14 @@ export function getFakeDataForColumn (column: any): any {
         return faker.random.arrayElement([0, 1]);
     }
 
+    if (typeKey === 'Function' && column.type.key === 'DATE') {
+        return generateDate();
+    }
+
+    if (typeKey === 'String' && column.type === 'TIMESTAMP') {
+        return generateDate();
+    }
+
     if (isNumber(typeKey)) {
         return generateNumber(column);
     }
