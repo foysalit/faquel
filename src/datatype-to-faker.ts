@@ -1,7 +1,7 @@
 import * as faker from 'faker';
 
 export function getFakeDataForColumn (column: any): any {
-    const typeKey = column.type.constructor.name;
+    const typeKey = column.type ? column.type.constructor.name : column.key;
 
     if (typeKey === 'Function') {
         if (column.type.key === 'TINYINT') {
@@ -28,7 +28,7 @@ export function getFakeDataForColumn (column: any): any {
         return generateNumber(column);
     }
 
-    if (isString(typeKey)) {
+    if (isString(typeKey) || typeKey === 'STRING') {
         return generateString(column);
     }
 
@@ -84,7 +84,7 @@ const isString = (type: string): boolean => {
 const generateString = (column: any): string => {
     const str = faker.lorem.sentences();
 
-    if (column.type._length && str.length > column.type._length) {
+    if (column.type && column.type._length && str.length > column.type._length) {
         return str.substr(0, column.type._length);
     }
 
